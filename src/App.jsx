@@ -11,7 +11,7 @@ const App = () => {
   const [selectedGallery, setSelectedGallery] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // 1. SERVICIOS ORGANIZADOS POR TUS ARCHIVOS
+  // 1. SERVICIOS ORGANIZADOS POR TUS ARCHIVOS CON THUMBNAILS
   const services = [
     {
       id: 1,
@@ -21,12 +21,14 @@ const App = () => {
       features: ['Switcher Blackmagic', 'Hollyland 4K Inalámbrico', 'Cámaras Profesionales'],
       icon: <Radio className="w-6 h-6" />,
       gallery: [
-        { type: 'video', url: '/assets/streaming/streaming02.mp4', title: 'Producción en Vivo' },
-        { type: 'video', url: '/assets/streaming/streaming06.mp4', title: 'Control Técnico' },
-        { type: 'video', url: '/assets/streaming/streaming07.mp4', title: 'Switcher 4K' },
-        { type: 'video', url: '/assets/streaming/streaming08.mp4', title: 'Streaming Corporativo' },
-        { type: 'video', url: '/assets/streaming/streaming09.mp4', title: 'Evento Híbrido' },
-        { type: 'image', url: '/assets/streaming/streaming12.jpg', title: 'Setup Audiovisual' }
+        // Para videos, añadimos la clave 'thumbnail' con la imagen referencial
+        { type: 'video', url: '/assets/streaming/streaming02.mp4', title: 'Producción en Vivo', thumbnail: '/assets/streaming/thumb_streaming02.jpeg' },
+        { type: 'video', url: '/assets/streaming/streaming06.mp4', title: 'Control Técnico', thumbnail: '/assets/streaming/thumb_streaming06.jpeg' },
+        { type: 'video', url: '/assets/streaming/streaming07.mp4', title: 'Switcher 4K', thumbnail: '/assets/streaming/thumb_streaming07.jpeg' },
+        { type: 'video', url: '/assets/streaming/streaming08.mp4', title: 'Streaming Corporativo', thumbnail: '/assets/streaming/thumb_streaming08.jpeg' },
+        { type: 'video', url: '/assets/streaming/streaming09.mp4', title: 'Evento Híbrido', thumbnail: '/assets/streaming/thumb_streaming09.jpeg' },
+        // CORRECCIÓN: .jpg -> .jpeg
+        { type: 'image', url: '/assets/streaming/streaming12.jpeg', title: 'Setup Audiovisual' }
       ]
     },
     {
@@ -37,9 +39,9 @@ const App = () => {
       features: ['Micros Sennheiser/Shure', 'Catálogo Infinito', 'Iluminación Rítmica'],
       icon: <Mic2 className="w-6 h-6" />,
       gallery: [
-        { type: 'video', url: '/assets/streaming/karaoke08.mp4', title: 'Noche de Karaoke' },
-        { type: 'video', url: '/assets/streaming/karaoke09.mp4', title: 'Show en Vivo' },
-        { type: 'video', url: '/assets/streaming/karaoke10.mp4', title: 'Setup Premium' }
+        { type: 'video', url: '/assets/streaming/karaoke08.mp4', title: 'Noche de Karaoke', thumbnail: '/assets/streaming/thumb_karaoke08.jpeg' },
+        { type: 'video', url: '/assets/streaming/karaoke09.mp4', title: 'Show en Vivo', thumbnail: '/assets/streaming/thumb_karaoke09.jpeg' },
+        { type: 'video', url: '/assets/streaming/karaoke10.mp4', title: 'Setup Premium', thumbnail: '/assets/streaming/thumb_karaoke10.jpeg' }
       ]
     },
     {
@@ -50,8 +52,9 @@ const App = () => {
       features: ['Mezcladoras Digitales', 'Parlantes Line Array', 'DJ especializado'],
       icon: <Volume2 className="w-6 h-6" />,
       gallery: [
-        { type: 'video', url: '/assets/streaming/sonido06.mp4', title: 'Sonido Line Array' },
-        { type: 'video', url: '/assets/streaming/sonido10.mp4', title: 'Mixer Digital' }
+        // Enlazamos tus imágenes referenciales a los videos correspondientes
+        { type: 'video', url: '/assets/streaming/sonido06.mp4', title: 'Sonido Line Array', thumbnail: '/assets/streaming/sonido06.jpg' },
+        { type: 'video', url: '/assets/streaming/sonido10.mp4', title: 'Mixer Digital', thumbnail: '/assets/streaming/sonido10.jpg' }
       ]
     },
     {
@@ -62,10 +65,10 @@ const App = () => {
       features: ['TV 60" con Rack', 'Proyectores Epson Pro', 'Ecrans Gigantes'],
       icon: <Tv className="w-6 h-6" />,
       gallery: [
-        { type: 'video', url: '/assets/streaming/pantalla03.mp4', title: 'Pantallas LED' },
-        { type: 'video', url: '/assets/streaming/pantalla04.mp4', title: 'Monitores de 60"' },
-        { type: 'video', url: '/assets/streaming/pantalla10.mp4', title: 'Proyección 4K' },
-        { type: 'video', url: '/assets/streaming/pantalla13.mp4', title: 'Circuito Cerrado' },
+        { type: 'video', url: '/assets/streaming/pantalla03.mp4', title: 'Pantallas LED', thumbnail: '/assets/streaming/thumb_pantalla03.jpeg' },
+        { type: 'video', url: '/assets/streaming/pantalla04.mp4', title: 'Monitores de 60"', thumbnail: '/assets/streaming/thumb_pantalla04.jpeg' },
+        { type: 'video', url: '/assets/streaming/pantalla10.mp4', title: 'Proyección 4K', thumbnail: '/assets/streaming/thumb_pantalla10.jpeg' },
+        { type: 'video', url: '/assets/streaming/pantalla13.mp4', title: 'Circuito Cerrado', thumbnail: '/assets/streaming/thumb_pantalla13.jpeg' },
         { type: 'image', url: '/assets/streaming/proyeccion01.jpg', title: 'Mapeo de Proyección' }
       ]
     },
@@ -77,7 +80,7 @@ const App = () => {
       features: ['Drone Mavic 3 RC Pro', 'RS4 PRO Gimbal', 'Hollyland 4K'],
       icon: <Camera className="w-6 h-6" />,
       gallery: [
-        { type: 'video', url: '/assets/streaming/drone05.mp4', title: 'Toma Aérea' }
+        { type: 'video', url: '/assets/streaming/drone05.mp4', title: 'Toma Aérea', thumbnail: '/assets/streaming/thumb_drone05.jpeg' }
       ]
     },
     {
@@ -89,7 +92,7 @@ const App = () => {
       icon: <Zap className="w-6 h-6" />,
       gallery: [
         { type: 'image', url: '/assets/streaming/luces07.jpg', title: 'Setup de Iluminación' },
-        { type: 'video', url: '/assets/streaming/luces11.mp4', title: 'Efectos Rítmicos' }
+        { type: 'video', url: '/assets/streaming/luces11.mp4', title: 'Efectos Rítmicos', thumbnail: '/assets/streaming/thumb_luces11.jpeg' }
       ]
     }
   ];
@@ -134,9 +137,9 @@ const App = () => {
 
       {/* Lightbox / Modal Multimedia */}
       {selectedGallery && (
-        <div className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-xl flex items-center justify-center p-4 transition-all">
-          <button onClick={closeLightbox} className="absolute top-6 right-6 p-3 bg-white/10 rounded-full hover:bg-white/20 z-50">
-            <X className="w-6 h-6 text-white" />
+        <div className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-xl flex items-center justify-center p-4 transition-all animate-in fade-in duration-300">
+          <button onClick={closeLightbox} className="absolute top-6 right-6 p-3 bg-white/10 rounded-full hover:bg-white/20 z-50 text-white">
+            <X className="w-6 h-6" />
           </button>
 
           {selectedGallery.length > 1 && (
@@ -226,7 +229,17 @@ const App = () => {
           {filteredServices.map((service) => (
             <div key={service.id} onClick={() => openLightbox(service.gallery)} className="group bg-slate-900 border border-white/5 rounded-[2rem] sm:rounded-[2.5rem] overflow-hidden hover:border-blue-500/50 transition-all cursor-pointer relative shadow-2xl flex flex-col">
               <div className="relative h-60 sm:h-72 overflow-hidden">
-                <img src={service.gallery[0].type === 'video' ? 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30' : service.gallery[0].url} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[2000ms]" alt={service.title} />
+                {/* LÓGICA DE RENDERIZADO DE THUMBNAIL ACTUALIZADA */}
+                <img
+                  src={
+                    service.gallery[0].type === 'video'
+                      ? (service.gallery[0].thumbnail || 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30')
+                      : service.gallery[0].url
+                  }
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[2000ms]"
+                  alt={service.title}
+                />
+
                 {service.gallery[0].type === 'video' && (
                   <div className="absolute inset-0 flex items-center justify-center bg-black/30">
                     <div className="bg-blue-600/90 p-4 sm:p-5 rounded-full shadow-2xl scale-90 group-hover:scale-110 transition-transform duration-500">
