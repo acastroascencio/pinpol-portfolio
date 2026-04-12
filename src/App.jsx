@@ -11,7 +11,6 @@ const App = () => {
   const [selectedGallery, setSelectedGallery] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // MANTENEMOS TUS 5 SERVICIOS ORIGINALES CON SOPORTE MULTIMEDIA
   const services = [
     {
       id: 1,
@@ -75,7 +74,6 @@ const App = () => {
     }
   ];
 
-  // 2. LOGOS DE CLIENTES RECONOCIDOS (PNG/SVG optimizados para fondo oscuro)
   const clients = [
     { name: 'Nike', logo: 'https://cdn.simpleicons.org/nike/white' },
     { name: 'Samsung', logo: 'https://cdn.simpleicons.org/samsung/white' },
@@ -122,10 +120,10 @@ const App = () => {
 
           {selectedGallery.length > 1 && (
             <>
-              <button onClick={prevMedia} className="absolute left-4 p-4 hover:bg-white/10 rounded-full text-white hidden md:block transition-all">
+              <button onClick={prevMedia} className="absolute left-4 p-4 hover:bg-white/10 rounded-full text-white hidden md:block">
                 <ChevronLeft className="w-10 h-10" />
               </button>
-              <button onClick={nextMedia} className="absolute right-4 p-4 hover:bg-white/10 rounded-full text-white hidden md:block transition-all">
+              <button onClick={nextMedia} className="absolute right-4 p-4 hover:bg-white/10 rounded-full text-white hidden md:block">
                 <ChevronRight className="w-10 h-10" />
               </button>
             </>
@@ -147,7 +145,7 @@ const App = () => {
         </div>
       )}
 
-      {/* Navegación (Centrado en móviles) */}
+      {/* Navegación */}
       <nav className="fixed top-0 w-full z-50 bg-slate-950/80 backdrop-blur-md border-b border-white/10 px-6 py-4">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2 sm:gap-0">
           <div className="flex flex-col items-center sm:items-start">
@@ -161,8 +159,8 @@ const App = () => {
         </div>
       </nav>
 
-      {/* Hero (Centrado Garantizado) */}
-      <section className="pt-48 sm:pt-40 pb-16 px-6 text-center flex flex-col items-center justify-center">
+      {/* Hero */}
+      <section className="pt-48 sm:pt-40 pb-16 px-6 text-center flex flex-col items-center">
         <div className="inline-block bg-blue-600/10 border border-blue-500/20 px-4 py-1 rounded-full text-blue-400 text-xs font-bold uppercase tracking-widest mb-6">
           Equipamiento de última tecnología
         </div>
@@ -172,22 +170,20 @@ const App = () => {
         </p>
       </section>
 
-      {/* SECCIÓN CLIENTES (REEL HORIZONTAL CORREGIDO PARA MÓVIL) */}
-      <section id="clientes" className="py-12 bg-slate-900/40 border-y border-white/5 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 mb-8 text-center text-[10px] font-black uppercase tracking-[0.3em] text-blue-500/60 flex justify-center w-full">
+      {/* SECCIÓN CLIENTES (LOGOS MÁS GRANDES) */}
+      <section id="clientes" className="py-16 bg-slate-900/40 border-y border-white/5 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 mb-10 text-center text-[11px] font-black uppercase tracking-[0.3em] text-blue-500/60 flex justify-center w-full">
           Marcas que confían en nuestra producción
         </div>
 
-        {/* Contenedor del Scroll (Centrado y forzando fila) */}
         <div className="flex items-center w-full overflow-hidden relative">
-          <div className="animate-scroll flex items-center gap-6 px-6"> {/* flex y items-center vitales aquí */}
-            {/* Duplicamos los logos para asegurar el bucle sin cortes */}
+          <div className="animate-scroll flex items-center gap-12 px-6">
             {[...clients, ...clients, ...clients].map((client, i) => (
-              <div key={i} className="flex-none w-28 md:w-56 h-20 md:h-24 flex items-center justify-center mx-2 sm:mx-4">
+              <div key={i} className="flex-none w-40 md:w-80 h-28 md:h-36 flex items-center justify-center mx-4 sm:mx-8">
                 <img
                   src={client.logo}
                   alt={client.name}
-                  className="max-h-8 md:max-h-12 object-contain grayscale opacity-30 hover:opacity-100 hover:grayscale-0 transition-all duration-700"
+                  className="max-h-16 md:max-h-24 object-contain grayscale opacity-30 hover:opacity-100 hover:grayscale-0 transition-all duration-700"
                 />
               </div>
             ))}
@@ -216,7 +212,6 @@ const App = () => {
               <div className="relative h-60 sm:h-72 overflow-hidden">
                 <img src={service.gallery[0].type === 'video' ? 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30' : service.gallery[0].url} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[2000ms]" alt={service.title} />
 
-                {/* Indicador de Video en el Grid */}
                 {service.gallery[0].type === 'video' && (
                   <div className="absolute inset-0 flex items-center justify-center bg-black/30">
                     <div className="bg-blue-600/90 p-5 rounded-full shadow-2xl scale-90 group-hover:scale-110 transition-transform duration-500">
@@ -249,7 +244,7 @@ const App = () => {
         </div>
       </section>
 
-      {/* Botón WhatsApp (Optimizado para móvil) */}
+      {/* Botón WhatsApp */}
       <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 w-full px-6 flex justify-center">
         <a href="https://wa.me/51998068412" className="flex items-center gap-3 bg-green-600 hover:bg-green-500 text-white px-8 sm:px-10 py-4 sm:py-5 rounded-full sm:rounded-[2.5rem] font-black text-base sm:text-lg shadow-[0_20px_50px_rgba(22,163,74,0.4)] transition-all hover:scale-105 active:scale-95 group whitespace-nowrap">
           <MessageCircle className="w-6 h-6 sm:w-7 sm:h-7 group-hover:rotate-12 transition-transform" />

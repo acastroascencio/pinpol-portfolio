@@ -1,4 +1,4 @@
-/* --- Estilos Originales y Base --- */
+/* --- Estilos Base --- */
 .counter {
   font-size: 16px;
   padding: 5px 10px;
@@ -14,7 +14,7 @@
   position: relative;
 }
 
-/* --- Animación Reel de Clientes (Infinite Scroll HORIZONTAL) --- */
+/* --- Animación Reel de Clientes (Infinite Scroll Horizontal) --- */
 @keyframes scroll {
   0% {
     transform: translateX(0);
@@ -23,27 +23,22 @@
   100% {
     transform: translateX(-50%);
   }
-
-  /* Se mueve hasta la mitad porque duplicamos contenido */
 }
 
 .animate-scroll {
   display: flex;
-  /* FUERZA FILA HORIZONTAL */
   width: max-content;
-  /* IMPORTANTE PARA EL BUCLE */
-  animation: scroll 40s linear infinite;
-  /* Velocidad suave */
+  animation: scroll 45s linear infinite;
+  /* Un poco más lento para logos grandes */
 }
 
-/* Detener animación al pasar el mouse (solo en desktop) */
 @media (hover: hover) {
   .animate-scroll:hover {
     animation-play-state: paused;
   }
 }
 
-/* --- Utilidades Extras --- */
+/* --- Utilidades --- */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
@@ -57,7 +52,6 @@
   text-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
 }
 
-/* Ajustes para iconos originales en hero (si los usas) */
 .hero .base {
   width: 170px;
   position: relative;
