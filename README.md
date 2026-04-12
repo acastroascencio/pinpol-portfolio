@@ -67,7 +67,7 @@ src/
     ```
 
 4.  **Abrir en el navegador:**
-    Visita `http://localhost:5173`
+    Visita `http://localhost:5173` (El puerto depende de tu configuración)
 
 -----
 
@@ -90,7 +90,10 @@ src/
 
 ⭐️ Si este proyecto te sirvió, ¡no olvides darle una estrella en GitHub\!
 
-```
-📄 Licencia
-Este proyecto está bajo la Licencia MIT. Esto significa que eres libre de usarlo, copiarlo y modificarlo, siempre que se mantenga el aviso de copyright original. Consulta el archivo LICENSE para más detalles.
-```
+## 📄 Licencia
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+Este proyecto está bajo la **Licencia MIT**. Esto significa que eres libre de usarlo, copiarlo y modificarlo, siempre que se mantenga el aviso de copyright original. Consulta el archivo [LICENSE](./LICENSE) para más detalles.
+
+-----
