@@ -11,7 +11,7 @@ const App = () => {
   const [selectedGallery, setSelectedGallery] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // 1. MANTENEMOS TUS 5 SERVICIOS ORIGINALES CON SOPORTE MULTIMEDIA
+  // MANTENEMOS TUS 5 SERVICIOS ORIGINALES CON SOPORTE MULTIMEDIA
   const services = [
     {
       id: 1,
@@ -75,16 +75,16 @@ const App = () => {
     }
   ];
 
-  // 2. LOGOS DE CLIENTES CON NUEVAS URLS
+  // 2. LOGOS DE CLIENTES RECONOCIDOS (PNG/SVG optimizados para fondo oscuro)
   const clients = [
-    { name: 'Empresa 1', logo: 'https://placehold.co/200x100/1e293b/3b82f6/png?text=CLIENTE+1' },
-    { name: 'Empresa 2', logo: 'https://placehold.co/200x100/1e293b/3b82f6/png?text=CLIENTE+2' },
-    { name: 'Empresa 3', logo: 'https://placehold.co/200x100/1e293b/3b82f6/png?text=CLIENTE+3' },
-    { name: 'Empresa 4', logo: 'https://placehold.co/200x100/1e293b/3b82f6/png?text=CLIENTE+4' },
-    { name: 'Empresa 5', logo: 'https://placehold.co/200x100/1e293b/3b82f6/png?text=CLIENTE+5' },
-    { name: 'Empresa 6', logo: 'https://placehold.co/200x100/1e293b/3b82f6/png?text=CLIENTE+6' },
-    { name: 'Empresa 7', logo: 'https://placehold.co/200x100/1e293b/3b82f6/png?text=CLIENTE+7' },
-    { name: 'Empresa 8', logo: 'https://placehold.co/200x100/1e293b/3b82f6/png?text=CLIENTE+8' },
+    { name: 'Nike', logo: 'https://cdn.simpleicons.org/nike/white' },
+    { name: 'Samsung', logo: 'https://cdn.simpleicons.org/samsung/white' },
+    { name: 'Sony', logo: 'https://cdn.simpleicons.org/sony/white' },
+    { name: 'Coca-Cola', logo: 'https://cdn.simpleicons.org/cocacola/white' },
+    { name: 'Apple', logo: 'https://cdn.simpleicons.org/apple/white' },
+    { name: 'Microsoft', logo: 'https://cdn.simpleicons.org/microsoft/white' },
+    { name: 'Disney', logo: 'https://cdn.simpleicons.org/disney/white' },
+    { name: 'Adidas', logo: 'https://cdn.simpleicons.org/adidas/white' },
   ];
 
   const filteredServices = activeTab === 'all' ? services : services.filter(s => s.category === activeTab);
@@ -139,7 +139,7 @@ const App = () => {
                 <img src={selectedGallery[currentIndex].url} className="max-w-full max-h-full object-contain rounded-2xl border border-white/10 shadow-2xl" alt="Vista" />
               )}
             </div>
-            <div className="mt-6 text-center">
+            <div className="mt-6 text-center px-4">
               <p className="text-xl font-bold text-white tracking-tight">{selectedGallery[currentIndex].title}</p>
               <p className="text-slate-400 text-sm mt-1">{currentIndex + 1} de {selectedGallery.length}</p>
             </div>
@@ -147,44 +147,47 @@ const App = () => {
         </div>
       )}
 
-      {/* Navegación */}
+      {/* Navegación (Centrado en móviles) */}
       <nav className="fixed top-0 w-full z-50 bg-slate-950/80 backdrop-blur-md border-b border-white/10 px-6 py-4">
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <div className="flex flex-col">
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2 sm:gap-0">
+          <div className="flex flex-col items-center sm:items-start">
             <span className="text-2xl font-black text-blue-500 tracking-tighter">PINPOL EVENTOS</span>
             <span className="text-[10px] uppercase text-slate-400 tracking-[0.2em]">Lima - Producción Audiovisual</span>
           </div>
-          <div className="hidden sm:flex gap-8 items-center">
+          <div className="flex gap-4 sm:gap-8 items-center mt-2 sm:mt-0">
             <a href="#clientes" className="text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-white transition-colors">Clientes</a>
-            <a href="https://wa.me/51998068412" className="bg-blue-600 px-6 py-2 rounded-full font-bold text-sm shadow-lg shadow-blue-600/20 hover:bg-blue-500 transition-all">Presupuesto Express</a>
+            <a href="https://wa.me/51998068412" className="bg-blue-600 px-5 py-2 rounded-full font-bold text-xs sm:text-sm shadow-lg shadow-blue-600/20 hover:bg-blue-500 transition-all whitespace-nowrap">Presupuesto Express</a>
           </div>
         </div>
       </nav>
 
-      {/* Hero */}
-      <section className="pt-40 pb-16 px-6 text-center">
+      {/* Hero (Centrado Garantizado) */}
+      <section className="pt-48 sm:pt-40 pb-16 px-6 text-center flex flex-col items-center justify-center">
         <div className="inline-block bg-blue-600/10 border border-blue-500/20 px-4 py-1 rounded-full text-blue-400 text-xs font-bold uppercase tracking-widest mb-6">
           Equipamiento de última tecnología
         </div>
         <h1 className="text-5xl md:text-7xl font-bold mb-4 tracking-tight">Portafolio <span className="text-blue-500 text-shadow-glow">Interactivo</span></h1>
-        <p className="text-slate-400 max-w-xl mx-auto text-lg leading-relaxed">
+        <p className="text-slate-400 max-w-xl mx-auto text-lg leading-relaxed px-2">
           Explora nuestros proyectos recientes. Haz clic en las tarjetas para ver el despliegue técnico y audiovisual de cada servicio.
         </p>
       </section>
 
-      {/* SECCIÓN CLIENTES (REEL HORIZONTAL INFINITO) */}
+      {/* SECCIÓN CLIENTES (REEL HORIZONTAL CORREGIDO PARA MÓVIL) */}
       <section id="clientes" className="py-12 bg-slate-900/40 border-y border-white/5 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 mb-8 text-center text-[10px] font-black uppercase tracking-[0.3em] text-blue-500/60">
+        <div className="max-w-7xl mx-auto px-6 mb-8 text-center text-[10px] font-black uppercase tracking-[0.3em] text-blue-500/60 flex justify-center w-full">
           Marcas que confían en nuestra producción
         </div>
-        <div className="flex items-center overflow-hidden">
-          <div className="animate-scroll flex"> {/* Flex es vital aquí para la fila */}
+
+        {/* Contenedor del Scroll (Centrado y forzando fila) */}
+        <div className="flex items-center w-full overflow-hidden relative">
+          <div className="animate-scroll flex items-center gap-6 px-6"> {/* flex y items-center vitales aquí */}
+            {/* Duplicamos los logos para asegurar el bucle sin cortes */}
             {[...clients, ...clients, ...clients].map((client, i) => (
-              <div key={i} className="flex-none w-56 h-24 flex items-center justify-center mx-4">
+              <div key={i} className="flex-none w-28 md:w-56 h-20 md:h-24 flex items-center justify-center mx-2 sm:mx-4">
                 <img
                   src={client.logo}
                   alt={client.name}
-                  className="max-h-12 object-contain grayscale opacity-30 hover:opacity-100 hover:grayscale-0 transition-all duration-700"
+                  className="max-h-8 md:max-h-12 object-contain grayscale opacity-30 hover:opacity-100 hover:grayscale-0 transition-all duration-700"
                 />
               </div>
             ))}
@@ -198,7 +201,7 @@ const App = () => {
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
-            className={`px-6 py-3 rounded-2xl text-xs font-bold uppercase tracking-wider transition-all border ${activeTab === tab ? 'bg-blue-600 text-white border-blue-500 shadow-lg shadow-blue-600/30' : 'bg-slate-900 text-slate-500 border-white/5 hover:border-white/20'}`}
+            className={`px-6 py-3 rounded-2xl text-xs font-bold uppercase tracking-wider transition-all border whitespace-nowrap ${activeTab === tab ? 'bg-blue-600 text-white border-blue-500 shadow-lg shadow-blue-600/30' : 'bg-slate-900 text-slate-500 border-white/5 hover:border-white/20'}`}
           >
             {tab === 'all' ? 'Ver Todo' : tab}
           </button>
@@ -209,8 +212,8 @@ const App = () => {
       <section className="max-w-7xl mx-auto px-6 pb-40">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           {filteredServices.map((service) => (
-            <div key={service.id} onClick={() => openLightbox(service.gallery)} className="group bg-slate-900 border border-white/5 rounded-[2.5rem] overflow-hidden hover:border-blue-500/50 transition-all cursor-pointer relative shadow-2xl">
-              <div className="relative h-72 overflow-hidden">
+            <div key={service.id} onClick={() => openLightbox(service.gallery)} className="group bg-slate-900 border border-white/5 rounded-[2.5rem] overflow-hidden hover:border-blue-500/50 transition-all cursor-pointer relative shadow-2xl flex flex-col">
+              <div className="relative h-60 sm:h-72 overflow-hidden">
                 <img src={service.gallery[0].type === 'video' ? 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30' : service.gallery[0].url} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[2000ms]" alt={service.title} />
 
                 {/* Indicador de Video en el Grid */}
@@ -227,15 +230,15 @@ const App = () => {
                 </div>
               </div>
 
-              <div className="p-8">
+              <div className="p-6 sm:p-8 flex flex-col flex-grow">
                 <div className="flex items-center gap-4 mb-5">
-                  <div className="p-4 bg-blue-600/10 rounded-2xl text-blue-500 group-hover:bg-blue-600 group-hover:text-white transition-all duration-500">{service.icon}</div>
-                  <h3 className="text-2xl font-bold group-hover:text-blue-400 transition-colors">{service.title}</h3>
+                  <div className="p-4 bg-blue-600/10 rounded-2xl text-blue-500 group-hover:bg-blue-600 group-hover:text-white transition-all duration-500 flex-none">{service.icon}</div>
+                  <h3 className="text-xl sm:text-2xl font-bold group-hover:text-blue-400 transition-colors">{service.title}</h3>
                 </div>
-                <p className="text-slate-400 text-sm mb-8 leading-relaxed line-clamp-2">{service.description}</p>
-                <div className="flex flex-wrap gap-2">
+                <p className="text-slate-400 text-sm mb-6 flex-grow leading-relaxed line-clamp-3">{service.description}</p>
+                <div className="flex flex-wrap gap-2 mt-auto">
                   {service.features.map((f, i) => (
-                    <div key={i} className="flex items-center gap-2 text-[9px] font-black text-slate-500 bg-white/5 px-3 py-2 rounded-lg border border-white/5 uppercase tracking-tighter">
+                    <div key={i} className="flex items-center gap-1.5 text-[9px] font-black text-slate-500 bg-white/5 px-2.5 py-1.5 rounded-lg border border-white/5 uppercase tracking-tighter">
                       <CheckCircle className="w-3 h-3 text-blue-600" /> {f}
                     </div>
                   ))}
@@ -246,10 +249,11 @@ const App = () => {
         </div>
       </section>
 
-      {/* Botón WhatsApp */}
-      <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-40 w-full px-6 flex justify-center">
-        <a href="https://wa.me/51998068412" className="flex items-center gap-4 bg-green-600 hover:bg-green-500 text-white px-10 py-5 rounded-[2.5rem] font-black text-lg shadow-[0_20px_50px_rgba(22,163,74,0.4)] transition-all hover:scale-105 active:scale-95 group">
-          <MessageCircle className="w-7 h-7 group-hover:rotate-12 transition-transform" /> Reserva tu Fecha
+      {/* Botón WhatsApp (Optimizado para móvil) */}
+      <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 w-full px-6 flex justify-center">
+        <a href="https://wa.me/51998068412" className="flex items-center gap-3 bg-green-600 hover:bg-green-500 text-white px-8 sm:px-10 py-4 sm:py-5 rounded-full sm:rounded-[2.5rem] font-black text-base sm:text-lg shadow-[0_20px_50px_rgba(22,163,74,0.4)] transition-all hover:scale-105 active:scale-95 group whitespace-nowrap">
+          <MessageCircle className="w-6 h-6 sm:w-7 sm:h-7 group-hover:rotate-12 transition-transform" />
+          Reserva tu Fecha en WhatsApp
         </a>
       </div>
     </div>
