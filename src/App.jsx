@@ -1,73 +1,77 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
-  Mic2,
-  Video,
-  Music,
-  Camera,
-  Radio,
-  Cast,
-  Maximize,
-  CheckCircle,
-  MessageCircle,
-  Globe,
-  Smartphone,
-  Zap,
-  Volume2,
-  Tv
+  Mic2, Video, Music, Camera, Radio, Cast,
+  Maximize, CheckCircle, MessageCircle,
+  Globe, Smartphone, Zap, Volume2, Tv,
+  X, ChevronLeft, ChevronRight, Play
 } from 'lucide-react';
 
 const App = () => {
   const [activeTab, setActiveTab] = useState('all');
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [selectedGallery, setSelectedGallery] = useState(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
+  // Datos de ejemplo con imágenes profesionales para previsualizar el diseño
   const services = [
     {
       id: 1,
       category: 'streaming',
       title: 'Streaming & Transmisión Pro',
-      description: 'Transmisiones didácticas y profesionales vía Zoom, Facebook, YouTube e Instagram.',
+      description: 'Transmisiones de alta fidelidad para eventos corporativos y sociales vía Zoom, YouTube y Facebook.',
       features: ['Switcher Blackmagic', 'Hollyland 4K Inalámbrico', 'Cámaras Profesionales'],
-      icon: <Radio className="w-6 h-6" />
+      icon: <Radio className="w-6 h-6" />,
+      gallery: [
+        { type: 'image', url: 'https://images.unsplash.com/photo-1594909122845-11baa439b7bf?q=80&w=1000', title: 'Control de Transmisión' },
+        { type: 'image', url: 'https://images.unsplash.com/photo-1478737270239-2f02b77fc618?q=80&w=1000', title: 'Setup Audiovisual' },
+        { type: 'image', url: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=1000', title: 'Cámaras 4K' }
+      ]
     },
     {
       id: 2,
       category: 'karaoke',
       title: 'Karaoke Profesional Premium',
-      description: 'El mejor sistema de karaoke para casa y eventos corporativos con audio de alta gama.',
-      features: ['Micros Sennheiser/Shure', 'Catálogo ilimitado', 'DJ con Controlador'],
-      icon: <Mic2 className="w-6 h-6" />
+      description: 'Equipos de sonido de alta gama y DJ para convertir tu casa en un escenario real.',
+      features: ['Micros Sennheiser/Shure', 'Catálogo Infinito', 'Iluminación Rítmica'],
+      icon: <Mic2 className="w-6 h-6" />,
+      gallery: [
+        { type: 'image', url: 'https://images.unsplash.com/photo-1516280440614-37939bbacd81?q=80&w=1000', title: 'Noche de Karaoke' },
+        { type: 'image', url: 'https://images.unsplash.com/photo-1493225255756-d9584f8606e9?q=80&w=1000', title: 'Microfonía Profesional' }
+      ]
     },
     {
       id: 3,
       category: 'rental',
-      title: 'Alquiler de Sonido Line Array',
-      description: 'Potencia y claridad para eventos sociales y corporativos de gran escala.',
-      features: ['Mezcladoras Digitales', 'Parlantes Line Array', 'Micros de Conferencia'],
-      icon: <Volume2 className="w-6 h-6" />
+      title: 'Sonido Line Array & DJ',
+      description: 'Sistemas de audio profesionales para grandes audiencias y eventos sociales.',
+      features: ['Mezcladoras Digitales', 'Parlantes Line Array', 'DJ especializado'],
+      icon: <Volume2 className="w-6 h-6" />,
+      gallery: [
+        { type: 'image', url: 'https://images.unsplash.com/photo-1505236858219-8359eb29e329?q=80&w=1000', title: 'Evento Corporativo' },
+        { type: 'image', url: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=1000', title: 'Cabina de DJ' }
+      ]
     },
     {
       id: 4,
       category: 'visuals',
       title: 'Pantallas & Proyección',
-      description: 'Monitores de 60", proyectores de 5000 lúmenes y ecrans gigantes.',
-      features: ['TV 60" con Rack', 'Proyectores Epson Pro', 'Monitores Gamer MSI/ASUS'],
-      icon: <Tv className="w-6 h-6" />
+      description: 'Monitores de 60" y proyectores Epson de 5000 lúmenes para máxima claridad.',
+      features: ['TV 60" con Rack', 'Proyectores Epson Pro', 'Ecrans Gigantes'],
+      icon: <Tv className="w-6 h-6" />,
+      gallery: [
+        { type: 'image', url: 'https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?q=80&w=1000', title: 'Proyección en Vivo' }
+      ]
     },
     {
       id: 5,
       category: 'tech',
-      title: 'Tecnología de Cine & Drones',
-      description: 'Tomas aéreas y estabilización de última generación para tus producciones.',
-      features: ['Drone Mavic 3 RC Pro', 'RS4 PRO Gimbal', 'Grabación 4K'],
-      icon: <Camera className="w-6 h-6" />
-    },
-    {
-      id: 6,
-      category: 'lighting',
-      title: 'Iluminación & Efectos',
-      description: 'Ambiente profesional con cabezas móviles y efectos visuales personalizados.',
-      features: ['Cabezas Móviles 9R', 'Fondo Chroma Verde', 'Ecrans 3x2'],
-      icon: <Zap className="w-6 h-6" />
+      title: 'Drones & Tecnología 4K',
+      description: 'Tomas aéreas con Mavic 3 y estabilización RS4 PRO para grabaciones de cine.',
+      features: ['Drone Mavic 3 RC Pro', 'RS4 PRO Gimbal', 'Hollyland 4K'],
+      icon: <Camera className="w-6 h-6" />,
+      gallery: [
+        { type: 'image', url: 'https://images.unsplash.com/photo-1508614589041-895b88991e3e?q=80&w=1000', title: 'Toma con Drone' },
+        { type: 'image', url: 'https://images.unsplash.com/photo-1527977966376-1c8408f9f108?q=80&w=1000', title: 'Gimbal de Cine' }
+      ]
     }
   ];
 
@@ -75,189 +79,174 @@ const App = () => {
     ? services
     : services.filter(s => s.category === activeTab);
 
-  const copyToClipboard = (text) => {
-    const el = document.createElement('textarea');
-    el.value = text;
-    document.body.appendChild(el);
-    el.select();
-    document.execCommand('copy');
-    document.body.removeChild(el);
-    alert('Número copiado al portapapeles: ' + text);
+  const openLightbox = (gallery, index = 0) => {
+    setSelectedGallery(gallery);
+    setCurrentIndex(index);
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeLightbox = () => {
+    setSelectedGallery(null);
+    document.body.style.overflow = 'auto';
+  };
+
+  const nextMedia = (e) => {
+    e.stopPropagation();
+    setCurrentIndex((prev) => (prev + 1) % selectedGallery.length);
+  };
+
+  const prevMedia = (e) => {
+    e.stopPropagation();
+    setCurrentIndex((prev) => (prev - 1 + selectedGallery.length) % selectedGallery.length);
   };
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 font-sans selection:bg-blue-500 selection:text-white">
-      {/* Navigation */}
+
+      {/* Lightbox / Modal de Galería */}
+      {selectedGallery && (
+        <div className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-xl flex items-center justify-center p-4 transition-all animate-in fade-in duration-300">
+          <button
+            onClick={closeLightbox}
+            className="absolute top-6 right-6 p-3 bg-white/10 rounded-full hover:bg-white/20 transition-all z-50 text-white"
+          >
+            <X className="w-6 h-6" />
+          </button>
+
+          {selectedGallery.length > 1 && (
+            <>
+              <button onClick={prevMedia} className="absolute left-4 p-4 hover:bg-white/10 rounded-full transition-all text-white hidden md:block">
+                <ChevronLeft className="w-10 h-10" />
+              </button>
+              <button onClick={nextMedia} className="absolute right-4 p-4 hover:bg-white/10 rounded-full transition-all text-white hidden md:block">
+                <ChevronRight className="w-10 h-10" />
+              </button>
+            </>
+          )}
+
+          <div className="max-w-5xl w-full h-full flex flex-col items-center justify-center">
+            <div className="relative w-full h-[70vh] flex items-center justify-center">
+              <img
+                src={selectedGallery[currentIndex].url}
+                className="max-w-full max-h-full object-contain rounded-xl shadow-2xl border border-white/10"
+                alt="Vista de servicio"
+              />
+            </div>
+            <div className="mt-6 text-center">
+              <p className="text-xl font-bold text-white">{selectedGallery[currentIndex].title}</p>
+              <p className="text-slate-400 text-sm mt-1">{currentIndex + 1} de {selectedGallery.length}</p>
+
+              {/* Navegación móvil */}
+              <div className="flex gap-4 mt-6 md:hidden">
+                <button onClick={prevMedia} className="bg-white/10 p-3 rounded-full"><ChevronLeft /></button>
+                <button onClick={nextMedia} className="bg-white/10 p-3 rounded-full"><ChevronRight /></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Navegación */}
       <nav className="fixed top-0 w-full z-50 bg-slate-950/80 backdrop-blur-md border-b border-white/10">
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
           <div className="flex flex-col">
             <span className="text-2xl font-black tracking-tighter text-blue-500">PINPOL EVENTOS</span>
             <span className="text-[10px] tracking-[0.3em] uppercase text-slate-400">Lima - Producción Audiovisual</span>
           </div>
-
-          <div className="hidden md:flex gap-8 text-sm font-medium uppercase tracking-widest">
-            <a href="#inicio" className="hover:text-blue-400 transition-colors">Inicio</a>
-            <a href="#servicios" className="hover:text-blue-400 transition-colors">Servicios</a>
-            <a href="#tech" className="hover:text-blue-400 transition-colors">Equipos</a>
-            <a href="#contacto" className="bg-blue-600 px-4 py-2 rounded-full hover:bg-blue-500 transition-all">Contacto</a>
+          <div className="hidden sm:flex gap-4">
+            <a href="https://wa.me/51998068412" className="bg-blue-600 px-6 py-2 rounded-full font-bold hover:bg-blue-500 transition-all text-sm shadow-lg shadow-blue-600/20">
+              Presupuesto Express
+            </a>
           </div>
-
-          <button className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-            <div className="w-6 h-1 bg-white mb-1"></div>
-            <div className="w-6 h-1 bg-white mb-1"></div>
-            <div className="w-6 h-1 bg-white"></div>
-          </button>
         </div>
       </nav>
 
-      {/* Hero Section */}
-      <section id="inicio" className="relative pt-32 pb-20 px-6 overflow-hidden">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full -z-10 opacity-20">
-          <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-600 rounded-full blur-[120px]"></div>
-          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-600 rounded-full blur-[150px]"></div>
+      {/* Hero */}
+      <section className="pt-32 pb-16 px-6 text-center">
+        <div className="inline-block bg-blue-600/10 border border-blue-500/20 px-4 py-1 rounded-full text-blue-400 text-xs font-bold uppercase tracking-widest mb-6">
+          Equipamiento de última tecnología
         </div>
-
-        <div className="max-w-5xl mx-auto text-center">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-            Elevamos tu Evento al <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">Siguiente Nivel</span>
-          </h1>
-          <p className="text-xl text-slate-400 mb-10 max-w-2xl mx-auto">
-            Producción audiovisual de vanguardia en Lima. Streaming 4K, Sonido Line Array y el mejor Karaoke Profesional a domicilio.
-          </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <a href="https://wa.me/51998068412" className="flex items-center gap-2 bg-green-600 hover:bg-green-500 text-white px-8 py-4 rounded-2xl font-bold transition-all transform hover:scale-105">
-              <MessageCircle className="w-5 h-5" /> WhatsApp Directo
-            </a>
-            <a href="#servicios" className="flex items-center gap-2 bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 px-8 py-4 rounded-2xl font-bold transition-all">
-              Explorar Servicios
-            </a>
-          </div>
-        </div>
+        <h1 className="text-5xl md:text-7xl font-bold mb-4 tracking-tight">Portafolio <span className="text-blue-500">Interactivo</span></h1>
+        <p className="text-slate-400 max-w-xl mx-auto text-lg leading-relaxed">
+          Explora nuestros proyectos recientes. Haz clic en las tarjetas para ver el despliegue técnico de cada servicio.
+        </p>
       </section>
 
-      {/* Services Grid */}
-      <section id="servicios" className="py-20 px-6 bg-slate-900/50">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
-            <div>
-              <h2 className="text-3xl font-bold mb-2">Nuestras Soluciones</h2>
-              <p className="text-slate-400">Todo lo que necesitas para una producción impecable.</p>
-            </div>
+      {/* Filtros */}
+      <div className="flex justify-center gap-2 mb-16 px-6 overflow-x-auto pb-4 no-scrollbar">
+        {['all', 'streaming', 'karaoke', 'rental', 'visuals', 'tech'].map((tab) => (
+          <button
+            key={tab}
+            onClick={() => setActiveTab(tab)}
+            className={`px-6 py-3 rounded-2xl text-xs font-bold uppercase tracking-wider transition-all whitespace-nowrap border ${activeTab === tab
+                ? 'bg-blue-600 text-white border-blue-500 shadow-lg shadow-blue-600/30'
+                : 'bg-slate-900 text-slate-500 border-white/5 hover:border-white/20'
+              }`}
+          >
+            {tab === 'all' ? 'Ver Todo' : tab}
+          </button>
+        ))}
+      </div>
 
-            <div className="flex flex-wrap gap-2">
-              {['all', 'streaming', 'karaoke', 'rental'].map((tab) => (
-                <button
-                  key={tab}
-                  onClick={() => setActiveTab(tab)}
-                  className={`px-4 py-2 rounded-lg text-sm font-semibold capitalize transition-all ${activeTab === tab ? 'bg-blue-600 text-white' : 'bg-slate-800 text-slate-400 hover:bg-slate-700'
-                    }`}
-                >
-                  {tab === 'all' ? 'Ver Todo' : tab}
-                </button>
-              ))}
-            </div>
-          </div>
+      {/* Grid de Servicios */}
+      <section className="max-w-7xl mx-auto px-6 pb-40">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+          {filteredServices.map((service) => (
+            <div
+              key={service.id}
+              onClick={() => openLightbox(service.gallery)}
+              className="group bg-slate-900 border border-white/5 rounded-[2.5rem] overflow-hidden hover:border-blue-500/50 transition-all cursor-pointer shadow-2xl relative"
+            >
+              {/* Thumbnail con Overlay */}
+              <div className="relative h-72 overflow-hidden">
+                <img
+                  src={service.gallery[0].url}
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000"
+                  alt={service.title}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent opacity-80 group-hover:opacity-40 transition-opacity"></div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredServices.map((service) => (
-              <div key={service.id} className="group bg-slate-800/40 border border-white/5 p-8 rounded-3xl hover:border-blue-500/50 transition-all hover:bg-slate-800/60">
-                <div className="w-14 h-14 bg-blue-600/10 rounded-2xl flex items-center justify-center text-blue-500 mb-6 group-hover:scale-110 transition-transform">
-                  {service.icon}
+                {/* Botón Flotante */}
+                <div className="absolute bottom-6 left-6 flex items-center gap-3 bg-white text-slate-950 px-4 py-2 rounded-full text-xs font-black uppercase shadow-xl transform translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all">
+                  <Maximize className="w-4 h-4 text-blue-600" /> Explorar Galería
                 </div>
-                <h3 className="text-xl font-bold mb-3">{service.title}</h3>
-                <p className="text-slate-400 text-sm mb-6 leading-relaxed">
+              </div>
+
+              <div className="p-8">
+                <div className="flex items-center gap-4 mb-5">
+                  <div className="p-4 bg-blue-600/10 rounded-2xl text-blue-500 group-hover:bg-blue-600 group-hover:text-white transition-all">
+                    {service.icon}
+                  </div>
+                  <h3 className="text-2xl font-bold group-hover:text-blue-400 transition-colors">{service.title}</h3>
+                </div>
+                <p className="text-slate-400 text-sm mb-8 leading-relaxed line-clamp-2">
                   {service.description}
                 </p>
-                <ul className="space-y-2">
+
+                {/* Características destacadas */}
+                <div className="flex flex-wrap gap-2">
                   {service.features.map((f, i) => (
-                    <li key={i} className="flex items-center gap-2 text-xs font-medium text-slate-300">
-                      <CheckCircle className="w-3 h-3 text-blue-500" /> {f}
-                    </li>
+                    <div key={i} className="flex items-center gap-2 text-[10px] font-bold text-slate-500 bg-white/5 px-3 py-1.5 rounded-lg border border-white/5">
+                      <CheckCircle className="w-3 h-3 text-blue-600" /> {f}
+                    </div>
                   ))}
-                </ul>
+                </div>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       </section>
 
-      {/* Tech Stack / Brands */}
-      <section id="tech" className="py-20 px-6">
-        <div className="max-w-7xl mx-auto">
-          <div className="bg-gradient-to-br from-blue-900/20 to-slate-900 border border-blue-500/20 rounded-[3rem] p-10 md:p-20 text-center">
-            <h2 className="text-4xl font-bold mb-8">Tecnología Certificada</h2>
-            <p className="text-slate-400 mb-12 max-w-2xl mx-auto">
-              No escatimamos en calidad. Trabajamos con las marcas líderes de la industria audiovisual para garantizar el éxito de tu evento.
-            </p>
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 opacity-60">
-              <div className="font-black text-2xl tracking-tighter">BLACKMAGIC</div>
-              <div className="font-black text-2xl tracking-tighter">SENNHEISER</div>
-              <div className="font-black text-2xl tracking-tighter">EPSON PRO</div>
-              <div className="font-black text-2xl tracking-tighter">MAVIC 3</div>
-              <div className="font-black text-2xl tracking-tighter">SHURE</div>
-              <div className="font-black text-2xl tracking-tighter">HOLLYLAND</div>
-              <div className="font-black text-2xl tracking-tighter">MSI GAMER</div>
-              <div className="font-black text-2xl tracking-tighter">ASUS</div>
-              <div className="font-black text-2xl tracking-tighter">SONY 4K</div>
-              <div className="font-black text-2xl tracking-tighter">DJI PRO</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer / Contact */}
-      <footer id="contacto" className="bg-slate-950 border-t border-white/5 pt-20 pb-10 px-6">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
-            <div className="lg:col-span-2">
-              <h2 className="text-3xl font-black text-blue-500 mb-6">PINPOL EVENTOS</h2>
-              <p className="text-slate-400 mb-6 max-w-md">
-                Líderes en soluciones tecnológicas para eventos en Lima. Karaoke pro, Streaming didáctico y alquiler de equipos de alta gama.
-              </p>
-              <div className="flex gap-4">
-                <a href="https://instagram.com/pinpoleventos" className="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center hover:bg-blue-600 transition-colors">
-                  <Camera className="w-5 h-5" />
-                </a>
-                <a href="https://www.pinpoleventos.com" className="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center hover:bg-blue-600 transition-colors">
-                  <Globe className="w-5 h-5" />
-                </a>
-                <button onClick={() => copyToClipboard('998068412')} className="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center hover:bg-blue-600 transition-colors">
-                  <Smartphone className="w-5 h-5" />
-                </button>
-              </div>
-            </div>
-
-            <div>
-              <h3 className="text-lg font-bold mb-6">Contacto Directo</h3>
-              <ul className="space-y-4 text-slate-400">
-                <li className="flex items-center gap-3">
-                  <MessageCircle className="w-5 h-5 text-blue-500" />
-                  998 068 412
-                </li>
-                <li className="flex items-center gap-3 underline">
-                  info@pinpoleventos.com
-                </li>
-                <li className="text-sm">
-                  Lima, Perú
-                </li>
-              </ul>
-            </div>
-
-            <div>
-              <h3 className="text-lg font-bold mb-6">Redes Sociales</h3>
-              <ul className="space-y-4 text-slate-400">
-                <li>TikTok: @pinpoleventos</li>
-                <li>Instagram: @pinpoleventos</li>
-                <li>Facebook: Pinpol Eventos</li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="border-t border-white/5 pt-8 text-center text-slate-500 text-sm">
-            <p>&copy; {new Date().getFullYear()} Pinpol Eventos Lima. Todos los derechos reservados.</p>
-          </div>
-        </div>
-      </footer>
+      {/* Botón de Contacto Flotante */}
+      <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-40 w-full px-6 flex justify-center">
+        <a
+          href="https://wa.me/51998068412"
+          className="flex items-center gap-4 bg-green-600 hover:bg-green-500 text-white px-10 py-5 rounded-[2rem] font-black text-lg shadow-[0_20px_50px_rgba(22,163,74,0.4)] transition-all hover:scale-105 active:scale-95 group"
+        >
+          <MessageCircle className="w-7 h-7 group-hover:rotate-12 transition-transform" />
+          Reserva tu Fecha en WhatsApp
+        </a>
+      </div>
     </div>
   );
 };
