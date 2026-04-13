@@ -59,6 +59,7 @@ const App = () => {
       features: ['Mezcladoras Digitales', 'Parlantes Line Array', 'DJ especializado'],
       icon: <Volume2 className="w-6 h-6" />,
       gallery: [
+        // FIXED: Usando .jpeg para asegurar que la miniatura cargue
         { type: 'video', url: '/assets/streaming/sonido06.mp4', title: 'Sonido Line Array', thumbnail: '/assets/streaming/sonido06.jpeg' },
         { type: 'video', url: '/assets/streaming/sonido10.mp4', title: 'Mixer Digital', thumbnail: '/assets/streaming/sonido10.jpeg' }
       ]
@@ -136,7 +137,7 @@ const App = () => {
               {selectedGallery[currentIndex].type === 'video' ? (
                 <video src={selectedGallery[currentIndex].url} controls autoPlay className="max-w-full max-h-full rounded-2xl shadow-2xl" />
               ) : (
-                <img src={selectedGallery[currentIndex].url} className="max-w-full max-h-full object-contain rounded-2xl shadow-2xl" alt="Vista" />
+                <img src={selectedGallery[currentIndex].url} className="max-w-full max-h-full object-contain rounded-2xl" alt="Vista" />
               )}
             </div>
             <div className="mt-6 text-center px-4">
@@ -181,12 +182,9 @@ const App = () => {
         </div>
       </section>
 
-      {/* --- FILTROS MEJORADOS: REGLA DE 3 Y FADE EFECT --- */}
-      <div className="relative mt-20 mb-12 max-w-7xl mx-auto">
-        {/* Degradado para que no se vea cortado a la derecha */}
-        <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-slate-950 to-transparent z-10 pointer-events-none sm:hidden"></div>
-
-        <div className="flex justify-start sm:justify-center gap-4 px-6 overflow-x-auto no-scrollbar snap-x snap-mandatory pb-6">
+      {/* --- FILTROS CENTRADOS Y BALANCEADOS (3 BOTONES EN MÓVIL) --- */}
+      <div className="mt-20 mb-12 w-full overflow-x-auto no-scrollbar snap-x snap-mandatory pb-6">
+        <div className="flex justify-center items-center min-w-max px-10 gap-4 mx-auto">
           {[
             { id: 'all', label: 'Todo' },
             { id: 'streaming', label: 'Streaming' },
@@ -200,9 +198,8 @@ const App = () => {
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
               className={`
-                snap-start flex-none
-                w-[calc(33.33vw-2rem)] sm:w-auto
-                min-w-[100px]
+                snap-center flex-none
+                w-[28vw] sm:w-auto
                 px-6 py-3 rounded-2xl text-[11px] sm:text-xs font-bold uppercase transition-all border whitespace-nowrap 
                 ${activeTab === tab.id ? 'bg-blue-600 text-white border-blue-500 shadow-lg' : 'bg-slate-900 text-slate-500 border-white/5'}
               `}
@@ -234,7 +231,7 @@ const App = () => {
               <div className="p-8 flex flex-col flex-grow">
                 <div className="flex items-center gap-4 mb-4">
                   <div className="p-3 bg-blue-600/10 rounded-xl text-blue-500">{service.icon}</div>
-                  <h3 className="text-xl sm:text-2xl font-bold group-hover:text-blue-400 transition-colors leading-tight">{service.title}</h3>
+                  <h3 className="text-xl sm:text-2xl font-bold group-hover:text-blue-400 transition-colors">{service.title}</h3>
                 </div>
                 <p className="text-slate-400 text-sm mb-6 flex-grow leading-relaxed line-clamp-3">{service.description}</p>
                 <div className="flex flex-wrap gap-2 mt-auto">
