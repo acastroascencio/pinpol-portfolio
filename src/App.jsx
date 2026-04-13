@@ -11,7 +11,6 @@ const App = () => {
   const [selectedGallery, setSelectedGallery] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // LOGOS (Rutas .jpeg/.png según tus archivos)
   const clients = [
     { name: 'Apuesta Total', logo: '/assets/logos/logoapuestatotal.jpeg' },
     { name: 'Cenfo', logo: '/assets/logos/logocenfo.jpeg' },
@@ -25,7 +24,6 @@ const App = () => {
     { name: 'Turismo', logo: '/assets/logos/logoturismo.jpeg' },
   ];
 
-  // SERVICIOS
   const services = [
     {
       id: 1,
@@ -138,7 +136,7 @@ const App = () => {
               {selectedGallery[currentIndex].type === 'video' ? (
                 <video src={selectedGallery[currentIndex].url} controls autoPlay className="max-w-full max-h-full rounded-2xl shadow-2xl" />
               ) : (
-                <img src={selectedGallery[currentIndex].url} className="max-w-full max-h-full object-contain rounded-2xl" alt="Vista" />
+                <img src={selectedGallery[currentIndex].url} className="max-w-full max-h-full object-contain rounded-2xl shadow-2xl" alt="Vista" />
               )}
             </div>
             <div className="mt-6 text-center px-4">
@@ -148,7 +146,7 @@ const App = () => {
         </div>
       )}
 
-      {/* 1. NAV OPTIMIZADO: Más espacio para S23 Ultra */}
+      {/* Navegación */}
       <nav className="fixed top-0 w-full z-50 bg-slate-950/95 backdrop-blur-xl border-b border-white/10 px-4 py-4 sm:py-5">
         <div className="max-w-7xl mx-auto flex flex-col items-center gap-4 sm:flex-row sm:justify-between sm:gap-0">
           <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
@@ -162,20 +160,20 @@ const App = () => {
         </div>
       </nav>
 
-      {/* 2. HERO: Aumentado el padding-top (pt-56) para que el texto no choque con el Nav móvil */}
-      <section className="pt-60 sm:pt-48 pb-12 px-6 text-center flex flex-col items-center justify-center">
+      {/* Hero */}
+      <section className="pt-64 sm:pt-48 pb-12 px-6 text-center flex flex-col items-center justify-center">
         <h1 className="text-4xl sm:text-7xl font-bold mb-4 tracking-tight leading-tight">Portafolio <span className="text-blue-500 text-shadow-glow">Interactivo</span></h1>
         <p className="text-slate-400 max-w-xl mx-auto text-base sm:text-lg leading-relaxed">Producción audiovisual de alto impacto para eventos corporativos.</p>
       </section>
 
-      {/* 3. SECCIÓN LOGOS: Añadido margen superior (mt-12) */}
-      <section id="clientes" className="mt-12 py-16 bg-slate-950 overflow-hidden relative">
+      {/* Sección Logos */}
+      <section id="clientes" className="mt-8 py-16 bg-slate-950 overflow-hidden relative">
         <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-slate-950 to-transparent z-10"></div>
         <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-slate-950 to-transparent z-10"></div>
         <div className="flex items-center w-full overflow-hidden">
           <div className="animate-scroll flex items-center gap-8 px-8">
             {[...clients, ...clients, ...clients].map((client, i) => (
-              <div key={i} className="flex-none w-52 md:w-64 h-32 md:h-40 flex items-center justify-center bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[2.5rem] p-6 transition-all hover:bg-white/[0.08] hover:border-blue-500/50 group">
+              <div key={i} className="flex-none w-52 md:w-64 h-32 md:h-40 flex items-center justify-center bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[2.5rem] p-6 transition-all hover:bg-white/[0.08] group">
                 <img src={client.logo} alt={client.name} className="max-h-14 md:max-h-20 object-contain transition-transform group-hover:scale-110" />
               </div>
             ))}
@@ -183,28 +181,39 @@ const App = () => {
         </div>
       </section>
 
-      {/* 4. FILTROS RESPONSIVE: mt-20 para separar de los logos, justify-start para ver Streaming primero */}
-      <div className="mt-20 mb-12 flex justify-start sm:justify-center gap-3 px-8 overflow-x-auto no-scrollbar pb-6">
-        {[
-          { id: 'all', label: 'Todo' },
-          { id: 'streaming', label: 'Streaming' },
-          { id: 'karaoke', label: 'Karaoke' },
-          { id: 'rental', label: 'Sonido' },
-          { id: 'visuals', label: 'Pantallas' },
-          { id: 'tech', label: 'Drones' },
-          { id: 'lighting', label: 'Luces' }
-        ].map((tab) => (
-          <button
-            key={tab.id}
-            onClick={() => setActiveTab(tab.id)}
-            className={`px-6 py-3 rounded-2xl text-[11px] sm:text-xs font-bold uppercase transition-all border whitespace-nowrap ${activeTab === tab.id ? 'bg-blue-600 text-white border-blue-500 shadow-lg' : 'bg-slate-900 text-slate-500 border-white/5'}`}
-          >
-            {tab.label}
-          </button>
-        ))}
+      {/* --- FILTROS MEJORADOS: REGLA DE 3 Y FADE EFECT --- */}
+      <div className="relative mt-20 mb-12 max-w-7xl mx-auto">
+        {/* Degradado para que no se vea cortado a la derecha */}
+        <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-slate-950 to-transparent z-10 pointer-events-none sm:hidden"></div>
+
+        <div className="flex justify-start sm:justify-center gap-4 px-6 overflow-x-auto no-scrollbar snap-x snap-mandatory pb-6">
+          {[
+            { id: 'all', label: 'Todo' },
+            { id: 'streaming', label: 'Streaming' },
+            { id: 'karaoke', label: 'Karaoke' },
+            { id: 'rental', label: 'Sonido' },
+            { id: 'visuals', label: 'Pantallas' },
+            { id: 'tech', label: 'Drones' },
+            { id: 'lighting', label: 'Luces' }
+          ].map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`
+                snap-start flex-none
+                w-[calc(33.33vw-2rem)] sm:w-auto
+                min-w-[100px]
+                px-6 py-3 rounded-2xl text-[11px] sm:text-xs font-bold uppercase transition-all border whitespace-nowrap 
+                ${activeTab === tab.id ? 'bg-blue-600 text-white border-blue-500 shadow-lg' : 'bg-slate-900 text-slate-500 border-white/5'}
+              `}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
       </div>
 
-      {/* 5. GRID DE SERVICIOS */}
+      {/* Grid de Servicios */}
       <section className="max-w-7xl mx-auto px-6 pb-44">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           {filteredServices.map((service) => (
@@ -225,7 +234,7 @@ const App = () => {
               <div className="p-8 flex flex-col flex-grow">
                 <div className="flex items-center gap-4 mb-4">
                   <div className="p-3 bg-blue-600/10 rounded-xl text-blue-500">{service.icon}</div>
-                  <h3 className="text-xl sm:text-2xl font-bold group-hover:text-blue-400 transition-colors">{service.title}</h3>
+                  <h3 className="text-xl sm:text-2xl font-bold group-hover:text-blue-400 transition-colors leading-tight">{service.title}</h3>
                 </div>
                 <p className="text-slate-400 text-sm mb-6 flex-grow leading-relaxed line-clamp-3">{service.description}</p>
                 <div className="flex flex-wrap gap-2 mt-auto">
