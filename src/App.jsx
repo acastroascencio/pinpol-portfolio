@@ -11,7 +11,21 @@ const App = () => {
   const [selectedGallery, setSelectedGallery] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // SERVICIOS CON RUTAS EXACTAS SEGÚN TU GITHUB (.jpeg)
+  // 1. CONFIGURACIÓN DE LOGOS ACTUALIZADA (Basado en image_85360c.png)
+  const clients = [
+    { name: 'Apuesta Total', logo: '/assets/logos/logoapuestatotal.jpeg' },
+    { name: 'Cenfo', logo: '/assets/logos/logocenfo.jpeg' },
+    { name: 'Empleo', logo: '/assets/logos/logoempleo.jpeg' },
+    { name: 'Gloria', logo: '/assets/logos/logogloria.png' },
+    { name: 'Lab', logo: '/assets/logos/logolab.jpeg' },
+    { name: 'Peña', logo: '/assets/logos/logopena.jpg' },
+    { name: 'Prod', logo: '/assets/logos/logoprod.jpeg' },
+    { name: 'SNI', logo: '/assets/logos/logosni.jpeg' },
+    { name: 'Telefo', logo: '/assets/logos/logotelefo.jpeg' },
+    { name: 'Turismo', logo: '/assets/logos/logoturismo.jpeg' },
+  ];
+
+  // 2. SERVICIOS CON RUTAS DE VIDEO Y THUMBNAILS
   const services = [
     {
       id: 1,
@@ -37,8 +51,8 @@ const App = () => {
       features: ['Micros Sennheiser/Shure', 'Catálogo Infinito', 'Iluminación Rítmica'],
       icon: <Mic2 className="w-6 h-6" />,
       gallery: [
-        { type: 'video', url: '/assets/streaming/karaoke08.mp4', title: 'Noche de Karaoke', thumbnail: '/assets/streaming/karaoke10.jpeg' },
-        { type: 'video', url: '/assets/streaming/karaoke09.mp4', title: 'Show en Vivo', thumbnail: '/assets/streaming/karaoke10.jpeg' }
+        { type: 'video', url: '/assets/streaming/karaoke08.mp4', title: 'Show de Karaoke', thumbnail: '/assets/streaming/karaoke10.jpeg' },
+        { type: 'video', url: '/assets/streaming/karaoke09.mp4', title: 'Evento Karaoke', thumbnail: '/assets/streaming/karaoke10.jpeg' }
       ]
     },
     {
@@ -50,7 +64,7 @@ const App = () => {
       icon: <Volume2 className="w-6 h-6" />,
       gallery: [
         { type: 'video', url: '/assets/streaming/sonido06.mp4', title: 'Sonido Line Array', thumbnail: '/assets/streaming/sonido06.jpeg' },
-        { type: 'video', url: '/assets/streaming/sonido10.mp4', title: 'Mixer Digital', thumbnail: '/assets/streaming/sonido10.jpeg' }
+        { type: 'video', url: '/assets/streaming/sonido10.mp4', title: 'Mixer Digital', thumbnail: '/assets/streaming/sonido06.jpeg' }
       ]
     },
     {
@@ -92,18 +106,6 @@ const App = () => {
     }
   ];
 
-  // ... (El resto del componente Clientes, Filtros y Grid se mantiene igual)
-  const clients = [
-    { name: 'Nike', logo: 'https://cdn.simpleicons.org/nike/white' },
-    { name: 'Samsung', logo: 'https://cdn.simpleicons.org/samsung/white' },
-    { name: 'Sony', logo: 'https://cdn.simpleicons.org/sony/white' },
-    { name: 'Coca-Cola', logo: 'https://cdn.simpleicons.org/cocacola/white' },
-    { name: 'Apple', logo: 'https://cdn.simpleicons.org/apple/white' },
-    { name: 'Microsoft', logo: 'https://cdn.simpleicons.org/microsoft/white' },
-    { name: 'Disney', logo: 'https://cdn.simpleicons.org/disney/white' },
-    { name: 'Adidas', logo: 'https://cdn.simpleicons.org/adidas/white' },
-  ];
-
   const filteredServices = activeTab === 'all' ? services : services.filter(s => s.category === activeTab);
 
   const openLightbox = (gallery, index = 0) => {
@@ -129,16 +131,25 @@ const App = () => {
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 font-sans selection:bg-blue-500 selection:text-white">
-      {/* Lightbox */}
+
+      {/* Lightbox / Modal Multimedia */}
       {selectedGallery && (
         <div className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-xl flex items-center justify-center p-4 transition-all animate-in fade-in duration-300">
-          <button onClick={closeLightbox} className="absolute top-6 right-6 p-3 bg-white/10 rounded-full hover:bg-white/20 z-50 text-white"><X className="w-6 h-6" /></button>
+          <button onClick={closeLightbox} className="absolute top-6 right-6 p-3 bg-white/10 rounded-full hover:bg-white/20 z-50 text-white">
+            <X className="w-6 h-6" />
+          </button>
+
           {selectedGallery.length > 1 && (
             <>
-              <button onClick={prevMedia} className="absolute left-4 p-4 hover:bg-white/10 rounded-full text-white hidden md:block"><ChevronLeft className="w-10 h-10" /></button>
-              <button onClick={nextMedia} className="absolute right-4 p-4 hover:bg-white/10 rounded-full text-white hidden md:block"><ChevronRight className="w-10 h-10" /></button>
+              <button onClick={prevMedia} className="absolute left-4 p-4 hover:bg-white/10 rounded-full text-white hidden md:block">
+                <ChevronLeft className="w-10 h-10" />
+              </button>
+              <button onClick={nextMedia} className="absolute right-4 p-4 hover:bg-white/10 rounded-full text-white hidden md:block">
+                <ChevronRight className="w-10 h-10" />
+              </button>
             </>
           )}
+
           <div className="max-w-5xl w-full h-full flex flex-col items-center justify-center">
             <div className="relative w-full h-[70vh] flex items-center justify-center">
               {selectedGallery[currentIndex].type === 'video' ? (
@@ -157,14 +168,14 @@ const App = () => {
 
       {/* Navegación */}
       <nav className="fixed top-0 w-full z-50 bg-slate-950/90 backdrop-blur-lg border-b border-white/10 px-4 py-3 sm:py-5">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-3 sm:gap-0">
+        <div className="max-w-7xl mx-auto flex flex-col items-center gap-3 sm:flex-row sm:justify-between sm:gap-0">
           <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
             <span className="text-xl sm:text-2xl font-black text-blue-500 tracking-tighter leading-tight">PINPOL EVENTOS</span>
             <span className="text-[8px] sm:text-[10px] uppercase text-slate-400 tracking-[0.2em]">Lima - Producción Audiovisual</span>
           </div>
           <div className="flex items-center gap-6 sm:gap-8">
             <a href="#clientes" className="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-white transition-colors">Clientes</a>
-            <a href="https://wa.me/51998068412" className="bg-blue-600 px-4 py-2 sm:px-6 sm:py-2 rounded-full font-bold text-[10px] sm:text-sm shadow-lg shadow-blue-600/20 hover:bg-blue-500 transition-all active:scale-95">Presupuesto Express</a>
+            <a href="https://wa.me/51998068412" className="bg-blue-600 px-4 py-2 sm:px-6 sm:py-2 rounded-full font-bold text-[10px] sm:text-sm shadow-lg shadow-blue-600/20 hover:bg-blue-500 transition-all whitespace-nowrap active:scale-95">Presupuesto Express</a>
           </div>
         </div>
       </nav>
@@ -173,17 +184,17 @@ const App = () => {
       <section className="pt-48 sm:pt-40 pb-16 px-6 text-center flex flex-col items-center justify-center">
         <div className="inline-block bg-blue-600/10 border border-blue-500/20 px-4 py-1 rounded-full text-blue-400 text-[10px] sm:text-xs font-bold uppercase tracking-widest mb-6">Equipamiento de última tecnología</div>
         <h1 className="text-4xl sm:text-7xl font-bold mb-4 tracking-tight leading-tight">Portafolio <span className="text-blue-500 text-shadow-glow">Interactivo</span></h1>
-        <p className="text-slate-400 max-w-xl mx-auto text-base sm:text-lg leading-relaxed px-2">Explora nuestros proyectos recientes. Haz clic en las tarjetas para ver el despliegue técnico y audiovisual.</p>
+        <p className="text-slate-400 max-w-xl mx-auto text-base sm:text-lg leading-relaxed px-2">Explora nuestros proyectos recientes con el mejor despliegue técnico.</p>
       </section>
 
-      {/* Clientes */}
+      {/* SECCIÓN CLIENTES */}
       <section id="clientes" className="py-12 bg-slate-900/40 border-y border-white/5 overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 mb-8 text-center text-[10px] font-black uppercase tracking-[0.3em] text-blue-500/60 flex justify-center w-full">Marcas que confían en nuestra producción</div>
         <div className="flex items-center w-full overflow-hidden relative">
           <div className="animate-scroll flex items-center gap-6 px-6">
             {[...clients, ...clients, ...clients].map((client, i) => (
-              <div key={i} className="flex-none w-28 md:w-56 h-20 md:h-24 flex items-center justify-center mx-2 sm:mx-4">
-                <img src={client.logo} alt={client.name} className="max-h-8 md:max-h-12 object-contain grayscale opacity-30 hover:opacity-100 hover:grayscale-0 transition-all duration-700" />
+              <div key={i} className="flex-none w-28 md:w-56 h-20 md:h-24 flex items-center justify-center mx-2 sm:mx-4 transition-transform hover:scale-110 duration-500">
+                <img src={client.logo} alt={client.name} className="max-h-12 md:max-h-16 object-contain" />
               </div>
             ))}
           </div>
@@ -197,7 +208,7 @@ const App = () => {
         ))}
       </div>
 
-      {/* Grid */}
+      {/* Grid de Servicios */}
       <section className="max-w-7xl mx-auto px-6 pb-40">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">
           {filteredServices.map((service) => (
