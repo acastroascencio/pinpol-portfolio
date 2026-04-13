@@ -35,7 +35,6 @@ const App = () => {
       gallery: [
         { type: 'video', url: '/assets/streaming/streaming02.mp4', title: 'Producción en Vivo', thumbnail: '/assets/streaming/streaming02.jpeg' },
         { type: 'video', url: '/assets/streaming/streaming06.mp4', title: 'Control Técnico', thumbnail: '/assets/streaming/streaming06.jpeg' },
-        { type: 'video', url: '/assets/streaming/streaming07.mp4', title: 'Switcher 4K', thumbnail: '/assets/streaming/streaming07.jpeg' },
         { type: 'image', url: '/assets/streaming/streaming12.jpeg', title: 'Setup Audiovisual' }
       ]
     },
@@ -59,7 +58,6 @@ const App = () => {
       features: ['Mezcladoras Digitales', 'Parlantes Line Array', 'DJ especializado'],
       icon: <Volume2 className="w-6 h-6" />,
       gallery: [
-        // FIXED: Usando .jpeg para asegurar que la miniatura cargue
         { type: 'video', url: '/assets/streaming/sonido06.mp4', title: 'Sonido Line Array', thumbnail: '/assets/streaming/sonido06.jpeg' },
         { type: 'video', url: '/assets/streaming/sonido10.mp4', title: 'Mixer Digital', thumbnail: '/assets/streaming/sonido10.jpeg' }
       ]
@@ -69,7 +67,7 @@ const App = () => {
       category: 'visuals',
       title: 'Pantallas & Proyección',
       description: 'Monitores de 60" y proyectores Epson de 5000 lúmenes para máxima claridad.',
-      features: ['TV 60" con Rack', 'Proyectores Epson Pro', 'Ecrans Gigantes'],
+      features: ['TV 60" con Rack', 'Proyectores Epson Pro'],
       icon: <Tv className="w-6 h-6" />,
       gallery: [
         { type: 'video', url: '/assets/streaming/pantalla03.mp4', title: 'Pantallas LED', thumbnail: '/assets/streaming/pantalla03.jpeg' },
@@ -93,7 +91,7 @@ const App = () => {
       category: 'lighting',
       title: 'Iluminación Escénica',
       description: 'Diseño de iluminación profesional para resaltar cada detalle de tu evento.',
-      features: ['Cabezales Móviles', 'Consolas DMX', 'Ambientación LED'],
+      features: ['Cabezales Móviles', 'Consolas DMX'],
       icon: <Zap className="w-6 h-6" />,
       gallery: [
         { type: 'image', url: '/assets/streaming/luces07.jpeg', title: 'Setup de Iluminación' },
@@ -115,22 +113,12 @@ const App = () => {
     document.body.style.overflow = 'auto';
   };
 
-  const nextMedia = (e) => {
-    e.stopPropagation();
-    setCurrentIndex((prev) => (prev + 1) % selectedGallery.length);
-  };
-
-  const prevMedia = (e) => {
-    e.stopPropagation();
-    setCurrentIndex((prev) => (prev - 1 + selectedGallery.length) % selectedGallery.length);
-  };
-
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 font-sans selection:bg-blue-500 selection:text-white">
 
       {/* Lightbox */}
       {selectedGallery && (
-        <div className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-xl flex items-center justify-center p-4 transition-all animate-in fade-in duration-300">
+        <div className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-xl flex items-center justify-center p-4 transition-all">
           <button onClick={closeLightbox} className="absolute top-6 right-6 p-3 bg-white/10 rounded-full text-white z-50"><X className="w-6 h-6" /></button>
           <div className="max-w-5xl w-full h-full flex flex-col items-center justify-center">
             <div className="relative w-full h-[70vh] flex items-center justify-center">
@@ -140,29 +128,26 @@ const App = () => {
                 <img src={selectedGallery[currentIndex].url} className="max-w-full max-h-full object-contain rounded-2xl" alt="Vista" />
               )}
             </div>
-            <div className="mt-6 text-center px-4">
-              <p className="text-xl font-bold text-white tracking-tight">{selectedGallery[currentIndex].title}</p>
-            </div>
           </div>
         </div>
       )}
 
-      {/* Navegación */}
+      {/* Navegación Centrada */}
       <nav className="fixed top-0 w-full z-50 bg-slate-950/95 backdrop-blur-xl border-b border-white/10 px-4 py-4 sm:py-5">
         <div className="max-w-7xl mx-auto flex flex-col items-center gap-4 sm:flex-row sm:justify-between sm:gap-0">
-          <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
-            <span className="text-xl sm:text-2xl font-black text-blue-500 tracking-tighter leading-tight">PINPOL EVENTOS</span>
+          <div className="flex flex-col items-center sm:items-start">
+            <span className="text-xl sm:text-2xl font-black text-blue-500 tracking-tighter leading-tight text-center sm:text-left">PINPOL EVENTOS</span>
             <span className="text-[8px] sm:text-[10px] uppercase text-slate-400 tracking-[0.2em]">Lima - Producción Audiovisual</span>
           </div>
           <div className="flex items-center gap-6">
             <a href="#clientes" className="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-white">Clientes</a>
-            <a href="https://wa.me/51998068412" className="bg-blue-600 px-5 py-2.5 rounded-full font-bold text-[10px] sm:text-sm shadow-lg shadow-blue-600/20 hover:bg-blue-500 transition-all whitespace-nowrap active:scale-95">Presupuesto Express</a>
+            <a href="https://wa.me/51998068412" className="bg-blue-600 px-5 py-2.5 rounded-full font-bold text-[10px] sm:text-sm shadow-lg shadow-blue-600/20 hover:bg-blue-500 transition-all active:scale-95">Presupuesto Express</a>
           </div>
         </div>
       </nav>
 
       {/* Hero */}
-      <section className="pt-64 sm:pt-48 pb-12 px-6 text-center flex flex-col items-center justify-center">
+      <section className="pt-64 sm:pt-48 pb-12 px-6 text-center">
         <h1 className="text-4xl sm:text-7xl font-bold mb-4 tracking-tight leading-tight">Portafolio <span className="text-blue-500 text-shadow-glow">Interactivo</span></h1>
         <p className="text-slate-400 max-w-xl mx-auto text-base sm:text-lg leading-relaxed">Producción audiovisual de alto impacto para eventos corporativos.</p>
       </section>
@@ -182,9 +167,9 @@ const App = () => {
         </div>
       </section>
 
-      {/* --- FILTROS CENTRADOS Y BALANCEADOS (3 BOTONES EN MÓVIL) --- */}
-      <div className="mt-20 mb-12 w-full overflow-x-auto no-scrollbar snap-x snap-mandatory pb-6">
-        <div className="flex justify-center items-center min-w-max px-10 gap-4 mx-auto">
+      {/* FILTROS: GRID DE 3 COLUMNAS PARA MÓVIL (CENTRADOS) */}
+      <div className="mt-20 mb-12 max-w-lg mx-auto px-6">
+        <div className="grid grid-cols-3 sm:flex sm:flex-wrap sm:justify-center gap-3">
           {[
             { id: 'all', label: 'Todo' },
             { id: 'streaming', label: 'Streaming' },
@@ -193,14 +178,14 @@ const App = () => {
             { id: 'visuals', label: 'Pantallas' },
             { id: 'tech', label: 'Drones' },
             { id: 'lighting', label: 'Luces' }
-          ].map((tab) => (
+          ].map((tab, index) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
               className={`
-                snap-center flex-none
-                w-[28vw] sm:w-auto
-                px-6 py-3 rounded-2xl text-[11px] sm:text-xs font-bold uppercase transition-all border whitespace-nowrap 
+                px-2 py-3 rounded-2xl text-[10px] sm:text-xs font-bold uppercase transition-all border
+                flex items-center justify-center
+                ${index === 6 ? 'col-start-2' : ''} /* Centra el último botón (Luces) */
                 ${activeTab === tab.id ? 'bg-blue-600 text-white border-blue-500 shadow-lg' : 'bg-slate-900 text-slate-500 border-white/5'}
               `}
             >
@@ -231,7 +216,7 @@ const App = () => {
               <div className="p-8 flex flex-col flex-grow">
                 <div className="flex items-center gap-4 mb-4">
                   <div className="p-3 bg-blue-600/10 rounded-xl text-blue-500">{service.icon}</div>
-                  <h3 className="text-xl sm:text-2xl font-bold group-hover:text-blue-400 transition-colors">{service.title}</h3>
+                  <h3 className="text-xl sm:text-2xl font-bold group-hover:text-blue-400 transition-colors leading-tight">{service.title}</h3>
                 </div>
                 <p className="text-slate-400 text-sm mb-6 flex-grow leading-relaxed line-clamp-3">{service.description}</p>
                 <div className="flex flex-wrap gap-2 mt-auto">
